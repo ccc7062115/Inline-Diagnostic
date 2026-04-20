@@ -1,0 +1,97 @@
+{
+  "name": "inline-diagnostics",
+  "displayName": "Inline Diagnostics",
+  "description": "Modern inline diagnostic UI with animated pills, background highlights, and glyph margin dots — replacing default squiggly underlines.",
+  "version": "1.0.0",
+  "publisher": "inline-diagnostics",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Linters"
+  ],
+  "keywords": [
+    "diagnostics",
+    "errors",
+    "warnings",
+    "inline",
+    "error lens"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Inline Diagnostics",
+      "properties": {
+        "inlineDiagnostics.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable the Inline Diagnostics extension."
+        },
+        "inlineDiagnostics.showErrors": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show error diagnostics inline."
+        },
+        "inlineDiagnostics.showWarnings": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show warning diagnostics inline."
+        },
+        "inlineDiagnostics.showHints": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show hint/information diagnostics inline."
+        },
+        "inlineDiagnostics.pillOpacity": {
+          "type": "number",
+          "default": 0.85,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Opacity of the message pill (0 = transparent via color blending, 1 = fully opaque)."
+        },
+        "inlineDiagnostics.showGlyphMarginDot": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show a colored dot in the glyph margin for lines with diagnostics."
+        },
+        "inlineDiagnostics.glyphMarginDotOpacity": {
+          "type": "number",
+          "default": 1.0,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Opacity of the glyph margin dot."
+        },
+        "inlineDiagnostics.highlightIntensity": {
+          "type": "number",
+          "default": 0.15,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Intensity of the background highlight on diagnostic ranges (0 = none, 1 = fully saturated)."
+        },
+        "inlineDiagnostics.maxMessageLength": {
+          "type": "number",
+          "default": 30,
+          "minimum": 10,
+          "maximum": 120,
+          "description": "Maximum number of characters shown in the pill message before truncation."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0",
+    "@vscode/vsce": "^2.22.0"
+  }
+}

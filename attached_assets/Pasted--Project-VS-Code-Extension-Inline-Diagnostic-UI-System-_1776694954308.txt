@@ -1,0 +1,118 @@
+📌 Project: VS Code Extension – Inline Diagnostic UI System
+🎯 Objective
+
+Develop a Visual Studio Code extension that replaces default diagnostic visuals (underlines, gutter indicators) with a modern, inline UI system that displays live diagnostic messages (errors, warnings, hints, etc.) directly inside the editor.
+
+The extension must work with all diagnostic sources, including:
+
+Built-in VS Code diagnostics
+Language servers (e.g., Rust Analyzer, GCC, Python, etc.)
+Third-party extensions
+🧩 Core Features
+1. Inline Diagnostic Display
+For every line containing diagnostics:
+Render a right-aligned arrow (→) at the end of the line (outside the pill).
+After the arrow, display a rounded pill UI element.
+Behavior:
+When cursor is NOT on the diagnostic line:
+The pill shows colored dots (one per diagnostic type present).
+If multiple types exist (error, warning, hint), the pill color should reflect the highest severity:
+Error > Warning > Hint
+When cursor IS on the diagnostic line:
+The pill displays the most severe diagnostic message text.
+Message Rules:
+Maximum length: 30 characters (including spaces)
+If exceeded:
+Truncate and append "..."
+2. Glyph Margin Indicator
+Display a small colored dot in the glyph margin for lines with diagnostics.
+Dot color corresponds to diagnostic severity.
+3. Highlighting (Replace Default Underlines)
+Completely remove/hide default squiggly underlines.
+Replace them with a background highlight over the affected text range.
+Highlight color should match diagnostic severity.
+Behavior similar to extensions like Error Lens.
+4. UI & Rendering Constraints
+❗ Must NOT affect editor layout:
+No shifting of text
+No line height changes
+No reflow
+Use:
+Decorations / after-content styling for inline rendering
+Avoid inserting actual text into the document
+Pill design:
+Rounded edges
+Height = editor line height
+Positioned inline without layout shift
+5. Visual Design Requirements
+Transparency Simulation
+Do NOT use true CSS transparency.
+Instead:
+Fetch editor background color
+Blend it with diagnostic color to simulate transparency
+Arrow (→)
+Must be:
+Outside the pill
+Bright and clearly visible
+Always rendered as a single connected symbol (not - + >)
+Animations
+Smooth transitions required:
+Pill expansion (dots → full message)
+Position changes (when line content changes)
+Fade-in / fade-out for appearance/disappearance
+6. Real-Time Behavior & Performance
+The UI must:
+Update instantly when:
+Cursor moves
+Text changes
+Diagnostics update
+Always stay attached to the correct line
+Move with the line if content shifts
+❗ No lag, flicker, or desynchronization allowed
+⚙️ Configuration Options (User Settings)
+
+Provide the following configurable settings:
+
+Enable/disable specific diagnostic types:
+Errors
+Warnings
+Hints
+Message pill:
+Opacity control
+If opacity = 0 → simulate full transparency via blending
+Text color must auto-adjust for readability based on background
+Glyph margin dot:
+Toggle on/off
+Adjustable opacity
+Highlight:
+Adjustable intensity
+🏗️ Technical Requirements
+Use official VS Code Extension API
+Follow proper extension structure:
+package.json
+extension.ts
+activation events
+configuration schema
+Must:
+Subscribe to diagnostic collections
+Track active editor + cursor position
+Efficiently update decorations
+Avoid:
+Unnecessary debouncing that causes UI lag
+Blocking operations on the UI thread
+📎 Additional Notes
+The pill must always reflect the correct diagnostic line, even during rapid edits.
+The UI must remain stable under:
+Fast typing
+Large files
+Multiple diagnostics per line
+✅ Summary
+
+This extension replaces traditional diagnostic visuals with:
+
+Inline pills (context-aware)
+Smooth animations
+Accurate real-time updates
+Zero layout disruption
+
+The end goal is a high-performance, visually clean, and intuitive diagnostic experience that feels native to VS Code but significantly more modern.

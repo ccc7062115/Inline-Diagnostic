@@ -25,3 +25,13 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - `pnpm --filter @workspace/api-server run dev` — run API server locally
 
 See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details.
+
+## Artifacts
+
+### inline-diagnostics (VS Code Extension)
+- Location: `artifacts/inline-diagnostics/`
+- Built with: TypeScript + VS Code Extension API
+- Output: `artifacts/inline-diagnostics/inline-diagnostics-1.0.0.vsix`
+- Features: inline pill diagnostics, background highlights, glyph margin dots, severity-aware color blending
+- Build: `cd artifacts/inline-diagnostics && npm install && npm run compile`
+- Package: `cd artifacts/inline-diagnostics && npx vsce package --no-yarn --allow-missing-repository`
